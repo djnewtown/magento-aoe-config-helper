@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Aoe_ConfigHelper>
-            <version>1.2.0</version>
+            <version>1.3.0</version>
         </Aoe_ConfigHelper>
     </modules>
     <global>
@@ -35,7 +35,7 @@
     <default>
         <dev>
             <aoe_confighelper>
-                <hinting_active>1</hinting_active>
+                <hinting_active>0</hinting_active>
                 <restriction_mode>warning</restriction_mode>
             </aoe_confighelper>
         </dev>

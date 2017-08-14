@@ -6,10 +6,10 @@ class Aoe_ConfigHelper_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml
      * Init fieldset fields
      *
      * @param Varien_Data_Form_Element_Fieldset $fieldset
-     * @param Varien_Simplexml_Element          $group
-     * @param Varien_Simplexml_Element          $section
-     * @param string                            $fieldPrefix
-     * @param string                            $labelPrefix
+     * @param Varien_Simplexml_Element $group
+     * @param Varien_Simplexml_Element $section
+     * @param string $fieldPrefix
+     * @param string $labelPrefix
      *
      * @return $this
      */
@@ -42,18 +42,22 @@ class Aoe_ConfigHelper_Block_Adminhtml_System_Config_Form extends Mage_Adminhtml
                 // Look up the mode for a config path
                 $mode = $helper->getConfigPathMode($path, $this->getWebsiteCode(), $this->getStoreCode());
 
+                if ($mode === $helper::MODE_DISABLED) {
+                    continue;
+                }
+
                 if ($mode === $helper::MODE_READONLY) {
                     $tooltip = htmlspecialchars($helper->__('This value is managed externally. Changes are not permitted.'));
-                    $scopeLabel = $helper->__('[READ-ONLY / EXTERNAL]');
-                    $scopeLabel = "<span style=\"color: red;\" title=\"${tooltip}\">${scopeLabel}</span>";
+                    $label = $helper->__('[READ-ONLY / EXTERNAL]');
+                    $scopeLabel = sprintf('<span style="color: red;" title="%s">%s</span>', $tooltip, $label);
                     $fieldElement->setScopeLabel($fieldElement->getScopeLabel() . '&nbsp;' . $scopeLabel);
                     $fieldElement->setDisabled(true);
                     $fieldElement->setCanUseWebsiteValue(false);
                     $fieldElement->setCanUseDefaultValue(false);
                 } elseif ($mode === $helper::MODE_WARNING) {
                     $tooltip = htmlspecialchars($helper->__('This value is managed externally. Any manual changes are subject to being reverted.'));
-                    $scopeLabel = $helper->__('[WARNING / EXTERNAL]');
-                    $scopeLabel = "<span style=\"color: red;\" title=\"${tooltip}\">${scopeLabel}</span>";
+                    $label = $helper->__('[WARNING / EXTERNAL]');
+                    $scopeLabel = sprintf('<span style="color: red;" title="%s">%s</span>', $tooltip, $label);
                     $fieldElement->setScopeLabel($fieldElement->getScopeLabel() . '&nbsp;' . $scopeLabel);
                 }
             }

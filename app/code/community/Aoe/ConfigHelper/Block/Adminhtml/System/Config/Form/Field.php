@@ -1,6 +1,6 @@
 <?php
 
-class Aoe_ConfigHelper_Block_Adminhtml_System_Config_Form_Field extends Mage_Adminhtml_Block_System_Config_Form_Field
+class Aoe_ConfigHelper_Block_Adminhtml_System_Config_Form_Field extends Aoe_ConfigHelper_Block_Adminhtml_System_Config_Form_Field_Compatibility
 {
     public function render(Varien_Data_Form_Element_Abstract $element)
     {
@@ -13,7 +13,7 @@ class Aoe_ConfigHelper_Block_Adminhtml_System_Config_Form_Field extends Mage_Adm
             $configCode = $this->getConfigCode($element);
             $id = str_replace('/', '_', $configCode);
             $prompt = 'onclick="var v=$(\'' . $id . '\').getValue(); window.prompt(\'Copy\', \'' . $configCode . ' = \' + v)"';
-            $html = str_replace("<label for=", "<label $prompt for=", $html);
+            $html = str_replace('<label for=', "<label $prompt for=", $html);
         }
 
         return $html;

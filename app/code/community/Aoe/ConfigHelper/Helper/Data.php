@@ -33,7 +33,7 @@ class Aoe_ConfigHelper_Helper_Data extends Mage_Core_Helper_Abstract
             return self::MODE_DISABLED;
         }
 
-        if (!in_array(trim($path, ' /'), $restrictedPaths)) {
+        if (!in_array(trim($path, ' /'), $restrictedPaths, true)) {
             return self::MODE_DISABLED;
         }
 
@@ -54,10 +54,12 @@ class Aoe_ConfigHelper_Helper_Data extends Mage_Core_Helper_Abstract
                 }
             }
 
-            $addPaths = $this->parsePaths(Mage::getStoreConfig(self::XML_PATH_RESTRICTED_PATHS_ADD, Mage_Core_Model_Store::ADMIN_CODE));
+            $addPaths = $this->parsePaths(Mage::getStoreConfig(self::XML_PATH_RESTRICTED_PATHS_ADD,
+                Mage_Core_Model_Store::ADMIN_CODE));
             $restrictedPaths = array_unique(array_merge($restrictedPaths, $addPaths));
 
-            $removePaths = $this->parsePaths(Mage::getStoreConfig(self::XML_PATH_RESTRICTED_PATHS_REMOVE, Mage_Core_Model_Store::ADMIN_CODE));
+            $removePaths = $this->parsePaths(Mage::getStoreConfig(self::XML_PATH_RESTRICTED_PATHS_REMOVE,
+                Mage_Core_Model_Store::ADMIN_CODE));
             $restrictedPaths = array_filter(array_diff($restrictedPaths, $removePaths));
 
             $this->restrictedPaths = $restrictedPaths;
@@ -67,10 +69,12 @@ class Aoe_ConfigHelper_Helper_Data extends Mage_Core_Helper_Abstract
     }
 
     /**
-     * @param array  $source
+     * @param array $source
      * @param string $pathPrefix
      *
      * @return array
+     * @throws \Mage_Core_Exception
+     * @throws \Exception
      *
      * @throws Exception
      */
@@ -85,7 +89,7 @@ class Aoe_ConfigHelper_Helper_Data extends Mage_Core_Helper_Abstract
             } elseif (is_scalar($value)) {
                 $result[$path] = $value;
             } else {
-                throw new Exception('Cannot flatten non-scalar/non-array values');
+                Mage::throwException('Cannot flatten non-scalar/non-array values');
             }
         }
 

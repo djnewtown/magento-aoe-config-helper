@@ -1,7 +1,18 @@
 {
-   "name": "aoepeople/aoe_confighelper",
-   "type": "magento-module",
-   "require": {
-      "magento-hackathon/magento-composer-installer": "*"
-   }
+  "name": "newtown/magento-aoe-config-helper",
+  "license": "OSL-3.0",
+  "type": "magento-module",
+  "description": "",
+  "homepage": "https://github.com/infabo/magento-aoe-config-helper",
+  "suggest": {
+    "php": ">=5.5",
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "authors": [
+    {
+      "name": "Ingo Fabbri",
+      "email": "if@newtown.at",
+      "role": "Author/Maintainer"
+    }
+  ]
 }
